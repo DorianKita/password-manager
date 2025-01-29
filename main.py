@@ -13,6 +13,7 @@ def save_data():
 
     website_input.delete(0, END)
     password_input.delete(0, END)
+    website_input.focus()
 
 # ---------------------------- UI SETUP ------------------------------- #
 
