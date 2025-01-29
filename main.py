@@ -9,28 +9,32 @@ letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
 numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
 
-nr_letters = random.randint(8, 10)
-nr_symbols = random.randint(2, 4)
-nr_numbers = random.randint(2, 4)
+def generate_password():
+    password_input.delete(0, END)
+    nr_letters = random.randint(8, 10)
+    nr_symbols = random.randint(2, 4)
+    nr_numbers = random.randint(2, 4)
 
-password_list = []
+    letter_part = [random.choice(letters) for char in range(nr_letters)]
+    symbol_part = [random.choice(symbols) for char in range(nr_symbols)]
+    number_part = [random.choice(numbers) for char in range(nr_numbers)]
 
-for char in range(nr_letters):
-  password_list.append(random.choice(letters))
+    password_list = letter_part + symbol_part + number_part
 
-for char in range(nr_symbols):
-  password_list += random.choice(symbols)
+    # for char in range(nr_letters):
+    #   password_list.append(random.choice(letters))
+    #
+    # for char in range(nr_symbols):
+    #   password_list += random.choice(symbols)
+    #
+    # for char in range(nr_numbers):
+    #   password_list += random.choice(numbers)
 
-for char in range(nr_numbers):
-  password_list += random.choice(numbers)
+    random.shuffle(password_list)
 
-random.shuffle(password_list)
+    password = "".join(password_list)
 
-password = ""
-for char in password_list:
-  password += char
-
-print(f"Your password is: {password}")
+    password_input.insert(0, password)
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
@@ -52,6 +56,7 @@ def save_data():
             website_input.delete(0, END)
             password_input.delete(0, END)
             website_input.focus()
+
 
 # ---------------------------- UI SETUP ------------------------------- #
 
@@ -89,7 +94,7 @@ email_input.insert(0, "example@example.com")
 password_input = Entry(width= 21)
 password_input.grid(row= 3, column= 1)
 
-generate_button = Button(text="Generate Password", width=10)
+generate_button = Button(text="Generate Password", width=10, command=generate_password)
 generate_button.grid(row= 3, column= 2)
 
 add_button = Button(text="Add", width=33, command=save_data)
