@@ -61,6 +61,20 @@ def save_data():
        password_input.delete(0, END)
        website_input.focus()
 
+# ---------------------------- FIND PASSWORD ------------------------------- #
+def find_password():
+    try:
+        with open(file="data.json", mode="r") as file:
+            data = json.load(file)
+    except FileNotFoundError:
+        messagebox.showinfo(title="Error", message="Data file not found")
+    else:
+        if website_input.get() in data:
+            messagebox.showinfo(title=f"{data[website_input.get()]}", message=f"Credentials for {website_input.get()}\n"
+                                                                              f"Email: {data[website_input.get()]['email']}"
+                                                                              f"\nPassword: {data[website_input.get()]['password']}")
+        else:
+            messagebox.showinfo(title="Not found", message=f"{website_input.get()} not found in database")
 
 # ---------------------------- UI SETUP ------------------------------- #
 
@@ -103,5 +117,8 @@ generate_button.grid(row= 3, column= 2)
 
 add_button = Button(text="Add", width=33, command=save_data)
 add_button.grid(row= 4, column= 1, columnspan= 2)
+
+search_button = Button(text= "Search", width=10, command=find_password)
+search_button.grid(row= 1, column= 2)
 
 window.mainloop()
