@@ -101,8 +101,8 @@ password_label.grid(row= 3, column= 0)
 
 # Inputs and buttons #
 
-website_input = Entry(width= 35)
-website_input.grid(row= 1, column= 1, columnspan= 2)
+website_input = Entry(width= 21)
+website_input.grid(row= 1, column= 1)
 website_input.focus()
 
 email_input = Entry(width= 35)
